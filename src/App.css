@@ -1,65 +1,133 @@
-main {
-    padding: 10px;
-    margin: 0 auto;
-    max-width: 1000px;
-}
-
 body {
     font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
     margin: 0;
+    padding: 0;
+}
+
+main {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #ffffff;
     padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    margin-bottom: 30px;
+    color: #333;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    max-width: 800px;
-    margin: auto;
 }
 
-input[type="text"],
-input[type="email"],
-select,
-input[type="submit"] {
-    width: 20%;
+input,
+select {
     padding: 10px;
     margin-bottom: 15px;
-    border-radius: 5px;
     border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 input[type="submit"] {
     background-color: #3a86ff;
-    color: #fff;
-    font-weight: bold;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
+}
+
+span {
+    color: red;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
-table th,
-table td {
+th,
+td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
 
-table th {
+th {
     background-color: #3a86ff;
-    color: #fff;
+    color: white;
 }
 
 button {
-    padding: 10px 15px;
+    background-color: #4caf50;
+    color: white;
+    padding: 8px;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     margin-right: 5px;
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal div {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+input[type="text"] {
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    width: 20%;
+    background-color: #3a86ff;
+    color: white;
+    cursor: pointer;
+}
+
+button.delete {
+    width: 70px;
+    margin-right: 20px;
+    margin-left: 20px;
+    background-color: #c9302c; /* Increase the margin between Delete and Edit buttons */
+}
+
+button.edit {
+    width: 70px;
+    background-color: #4caf50;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.save-btn {
+    width: 70px;
+    background: #4caf50;
+}
+
+.cancel-btn {
+    width: 70px;
+    background: #ea1111;
 }

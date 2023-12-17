@@ -95,6 +95,23 @@ const App = () => {
         setSelectedStudent(selectedStudent);
     };
 
+    const submitEdit = () => {
+        const updatedStudents = students.map((student) => {
+            if (student.id === selectedStudent.id) {
+                return {
+                    ...student,
+                    firstName,
+                    lastName,
+                    email,
+                    className
+                };
+            }
+            return student;
+        });
+        setStudents(updatedStudents);
+        setShowModal(false);
+    };
+
     return (
         <main>
             <h1>Student Enrollment Form</h1>
@@ -159,10 +176,15 @@ const App = () => {
                             <td>
                                 <button
                                     onClick={() => deleteStudent(student.id)}
+                                    className="delete"
                                 >
                                     Delete
                                 </button>
-                                <button onClick={() => editStudent(student.id)}>
+
+                                <button
+                                    onClick={() => editStudent(student.id)}
+                                    className="edit"
+                                >
                                     Edit
                                 </button>
                             </td>
@@ -180,19 +202,19 @@ const App = () => {
                             placeholder="firstName"
                         />
                         <input
-                            value={lastName}
+                            value={selectedStudent.lastName}
                             onChange={handleOnChangeLastName}
                             type="text"
                             placeholder="lastName"
                         />
                         <input
-                            value={email}
+                            value={selectedStudent.email}
                             onChange={handleOnChangeEmail}
                             type="text"
                             placeholder="email"
                         />
                         <input
-                            value={className}
+                            value={selectedStudent.className}
                             onChange={handleOnChangeClassName}
                             type="text"
                             placeholder="classtName"
@@ -200,7 +222,16 @@ const App = () => {
 
                         <button
                             type="button"
+                            onClick={submitEdit}
+                            className="save-btn"
+                        >
+                            Save
+                        </button>
+
+                        <button
+                            type="button"
                             onClick={() => setShowModal(false)}
+                            className="cancel-btn"
                         >
                             Cancel
                         </button>
