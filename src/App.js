@@ -12,6 +12,11 @@ const App = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
 
+    const [modalFirstName, setModalFirstName] = useState("");
+    const [modalLastName, setModalLastName] = useState("");
+    const [modalEmail, setModalEmail] = useState("");
+    const [modalClassName, setModalClassName] = useState("");
+
     const handleOnChangeFirstName = (e) => {
         const { value } = e.target;
         setFirstName(value);
@@ -72,7 +77,7 @@ const App = () => {
             className
         };
 
-        setStudents((prevState) => [...prevState, newStudent]);
+        setStudents((prevStudents) => [...prevStudents, newStudent]);
         setFirstName("");
         setLastName("");
         setEmail("");
@@ -80,11 +85,26 @@ const App = () => {
     };
 
     const deleteStudent = (studentId) => {
-        const keptStudents = students.filter(
-            (student) => student.id !== studentId
+        setStudents((prevStudents) =>
+            prevStudents.filter((student) => student.id !== studentId)
         );
-        setStudents(keptStudents);
         setShowModal(false);
+    };
+
+    const handleModalFirstNameChange = (e) => {
+        setModalFirstName(e.target.value);
+    };
+
+    const handleModalLastNameChange = (e) => {
+        setModalLastName(e.target.value);
+    };
+
+    const handleModalEmailChange = (e) => {
+        setModalEmail(e.target.value);
+    };
+
+    const handleModalClassNameChange = (e) => {
+        setModalClassName(e.target.value);
     };
 
     const editStudent = (studentId) => {
@@ -93,6 +113,11 @@ const App = () => {
         );
         setShowModal(true);
         setSelectedStudent(selectedStudent);
+
+        setModalFirstName(selectedStudent.firstName);
+        setModalLastName(selectedStudent.lastName);
+        setModalEmail(selectedStudent.email);
+        setModalClassName(selectedStudent.className);
     };
 
     const submitEdit = () => {
@@ -100,10 +125,10 @@ const App = () => {
             if (student.id === selectedStudent.id) {
                 return {
                     ...student,
-                    firstName,
-                    lastName,
-                    email,
-                    className
+                    firstName: modalFirstName,
+                    lastName: modalLastName,
+                    email: modalEmail,
+                    className: modalClassName
                 };
             }
             return student;
@@ -196,26 +221,26 @@ const App = () => {
                 <div className="modal">
                     <div>
                         <input
-                            value={selectedStudent.firstName}
-                            onChange={handleOnChangeFirstName}
+                            value={modalFirstName}
+                            onChange={handleModalFirstNameChange}
                             type="text"
                             placeholder="firstName"
                         />
                         <input
-                            value={selectedStudent.lastName}
-                            onChange={handleOnChangeLastName}
+                            value={modalLastName}
+                            onChange={handleModalLastNameChange}
                             type="text"
                             placeholder="lastName"
                         />
                         <input
-                            value={selectedStudent.email}
-                            onChange={handleOnChangeEmail}
+                            value={modalEmail}
+                            onChange={handleModalEmailChange}
                             type="text"
                             placeholder="email"
                         />
                         <input
-                            value={selectedStudent.className}
-                            onChange={handleOnChangeClassName}
+                            value={modalClassName}
+                            onChange={handleModalClassNameChange}
                             type="text"
                             placeholder="classtName"
                         />
