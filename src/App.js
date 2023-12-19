@@ -12,6 +12,11 @@ const App = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
 
+    const [modalFirstName, setModalFirstName] = useState("");
+    const [modalLastName, setModalLastName] = useState("");
+    const [modalEmail, setModalEmail] = useState("");
+    const [modalClassName, setModalClassName] = useState("");
+
     const handleOnChangeFirstName = (e) => {
         const { value } = e.target;
         setFirstName(value);
@@ -72,7 +77,7 @@ const App = () => {
             className
         };
 
-        setStudents((prevState) => [...prevState, newStudent]);
+        setStudents((prevStudents) => [...prevStudents, newStudent]);
         setFirstName("");
         setLastName("");
         setEmail("");
@@ -80,11 +85,26 @@ const App = () => {
     };
 
     const deleteStudent = (studentId) => {
-        const keptStudents = students.filter(
-            (student) => student.id !== studentId
+        setStudents((prevStudents) =>
+            prevStudents.filter((student) => student.id !== studentId)
         );
-        setStudents(keptStudents);
         setShowModal(false);
+    };
+
+    const handleModalFirstNameChange = (e) => {
+        setModalFirstName(e.target.value);
+    };
+
+    const handleModalLastNameChange = (e) => {
+        setModalLastName(e.target.value);
+    };
+
+    const handleModalEmailChange = (e) => {
+        setModalEmail(e.target.value);
+    };
+
+    const handleModalClassNameChange = (e) => {
+        setModalClassName(e.target.value);
     };
 
     const editStudent = (studentId) => {
@@ -93,6 +113,28 @@ const App = () => {
         );
         setShowModal(true);
         setSelectedStudent(selectedStudent);
+
+        setModalFirstName(selectedStudent.firstName);
+        setModalLastName(selectedStudent.lastName);
+        setModalEmail(selectedStudent.email);
+        setModalClassName(selectedStudent.className);
+    };
+
+    const submitEdit = () => {
+        const updatedStudents = students.map((student) => {
+            if (student.id === selectedStudent.id) {
+                return {
+                    ...student,
+                    firstName: modalFirstName,
+                    lastName: modalLastName,
+                    email: modalEmail,
+                    className: modalClassName
+                };
+            }
+            return student;
+        });
+        setStudents(updatedStudents);
+        setShowModal(false);
     };
 
     return (
@@ -159,10 +201,15 @@ const App = () => {
                             <td>
                                 <button
                                     onClick={() => deleteStudent(student.id)}
+                                    className="delete"
                                 >
                                     Delete
                                 </button>
-                                <button onClick={() => editStudent(student.id)}>
+
+                                <button
+                                    onClick={() => editStudent(student.id)}
+                                    className="edit"
+                                >
                                     Edit
                                 </button>
                             </td>
@@ -174,33 +221,42 @@ const App = () => {
                 <div className="modal">
                     <div>
                         <input
-                            value={selectedStudent.firstName}
-                            onChange={handleOnChangeFirstName}
+                            value={modalFirstName}
+                            onChange={handleModalFirstNameChange}
                             type="text"
                             placeholder="firstName"
                         />
                         <input
-                            value={lastName}
-                            onChange={handleOnChangeLastName}
+                            value={modalLastName}
+                            onChange={handleModalLastNameChange}
                             type="text"
                             placeholder="lastName"
                         />
                         <input
-                            value={email}
-                            onChange={handleOnChangeEmail}
+                            value={modalEmail}
+                            onChange={handleModalEmailChange}
                             type="text"
                             placeholder="email"
                         />
                         <input
-                            value={className}
-                            onChange={handleOnChangeClassName}
+                            value={modalClassName}
+                            onChange={handleModalClassNameChange}
                             type="text"
                             placeholder="classtName"
                         />
 
                         <button
                             type="button"
+                            onClick={submitEdit}
+                            className="save-btn"
+                        >
+                            Save
+                        </button>
+
+                        <button
+                            type="button"
                             onClick={() => setShowModal(false)}
+                            className="cancel-btn"
                         >
                             Cancel
                         </button>
