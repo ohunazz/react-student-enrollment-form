@@ -238,12 +238,17 @@ const App = () => {
                             type="text"
                             placeholder="email"
                         />
-                        <input
+                        <select
+                            className="select-class"
                             value={modalClassName}
                             onChange={handleModalClassNameChange}
-                            type="text"
-                            placeholder="classtName"
-                        />
+                        >
+                            <option value="">Select Class</option>
+                            <option value="Statistics">Statistics</option>
+                            <option value="History">History</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Literature">Literature</option>
+                        </select>
 
                         <button
                             type="button"
